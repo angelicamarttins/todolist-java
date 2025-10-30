@@ -1,19 +1,18 @@
 package com.javafluency.todolist.service;
 
+import static com.javafluency.todolist.model.builder.TodoBuilder.fromDto;
+import static com.javafluency.todolist.model.builder.TodoBuilder.fromEntity;
+
 import com.javafluency.todolist.dto.TodoRequestDto;
 import com.javafluency.todolist.dto.TodoResponseDto;
 import com.javafluency.todolist.model.Todo;
 import com.javafluency.todolist.model.builder.TodoBuilder;
 import com.javafluency.todolist.repository.TodolistRepository;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static com.javafluency.todolist.model.builder.TodoBuilder.fromDto;
-import static com.javafluency.todolist.model.builder.TodoBuilder.fromEntity;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
@@ -30,10 +29,7 @@ public class TodolistService {
   public List<TodoResponseDto> getAllTodos() {
     List<Todo> savedTodoEntities = todolistRepository.findAll();
 
-    return savedTodoEntities
-        .stream()
-        .map(TodoBuilder::fromEntity)
-        .toList();
+    return savedTodoEntities.stream().map(TodoBuilder::fromEntity).toList();
   }
 
   public TodoResponseDto getTodo(Long todoId) {
