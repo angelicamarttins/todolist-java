@@ -34,6 +34,7 @@ public class TodolistController {
   @GetMapping
   public ResponseEntity<List<TodoResponseDto>> getAllTodos() {
     log.info("Getting all todos");
+
     return ResponseEntity.ok(todolistService.getAllTodos());
   }
 
