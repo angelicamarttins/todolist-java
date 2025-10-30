@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class GlobalExceptionHandler {
-
-
+  
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorData> handleException(Exception exception) {
     ErrorData errorData = new ErrorData("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
