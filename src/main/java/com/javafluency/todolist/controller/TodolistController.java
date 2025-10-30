@@ -56,7 +56,7 @@ public class TodolistController {
   }
 
   @DeleteMapping("/{todoId}")
-  public ResponseEntity<TodoResponseDto> deleteTodo(@PathVariable Long todoId) {
+  public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId) {
     log.info("Deleting todo. todoId: {}", todoId);
 
     todolistService.deleteTodo(todoId);
