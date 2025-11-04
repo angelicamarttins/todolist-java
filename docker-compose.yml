@@ -1,6 +1,8 @@
 services:
   postgres:
     image: postgres:14.19-alpine3.21
+    container_name: postgres
+    restart: always
     ports:
       - "5432:5432"
     environment:
@@ -8,6 +10,21 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: mydatabase
     volumes:
-      - postgres-data:/etc/todolistpostgres
+      - postgres-data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: todolist-api
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+
 volumes:
   postgres-data:
