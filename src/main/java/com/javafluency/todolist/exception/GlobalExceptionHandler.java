@@ -2,10 +2,13 @@ package com.javafluency.todolist.exception;
 
 import com.javafluency.todolist.exception.common.ErrorData;
 import com.javafluency.todolist.exception.common.GeneralHttpException;
+import java.util.List;
+import java.util.Map;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -25,5 +28,24 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(generalHttpException.getErrorData(), generalHttpException.getHttpStatus());
   }
 
-  
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<Map<String, Object>> handleValidationException(MethodArgumentNotValidException exception) {
+
+    List<String> missingValues = exception
+      .getBindingResult()
+      .getFieldErrors()
+      .stream()
+      .map(erro -> erro.getField() + ": " +
+        erro.getDefaultMessage())
+      .toList();
+
+    Map<String, Object> errorData = Map.of(
+      "errorReason", missingValues,
+      "errorCode", HttpStatus.BAD_REQUEST
+    );
+    
+    return ResponseEntity.badRequest().body(errorData);
+  }
+
 }
