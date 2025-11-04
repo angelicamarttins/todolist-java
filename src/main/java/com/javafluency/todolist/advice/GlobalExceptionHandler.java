@@ -1,4 +1,4 @@
-package com.javafluency.todolist.exception;
+package com.javafluency.todolist.advice;
 
 import com.javafluency.todolist.exception.common.ErrorData;
 import com.javafluency.todolist.exception.common.GeneralHttpException;
@@ -36,15 +36,15 @@ public class GlobalExceptionHandler {
       .getBindingResult()
       .getFieldErrors()
       .stream()
-      .map(erro -> erro.getField() + ": " +
-        erro.getDefaultMessage())
+      .map(error -> error.getField() + ": " +
+        error.getDefaultMessage())
       .toList();
 
     Map<String, Object> errorData = Map.of(
       "errorReason", missingValues,
       "errorCode", HttpStatus.BAD_REQUEST
     );
-    
+
     return ResponseEntity.badRequest().body(errorData);
   }
 
