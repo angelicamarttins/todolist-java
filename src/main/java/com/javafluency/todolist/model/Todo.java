@@ -31,7 +31,7 @@ public class Todo {
   @Column(name = "title", nullable = false)
   private String title;
 
-  @Column(name = "description", nullable = false)
+  @Column(name = "description")
   private String description;
 
   @CreationTimestamp
@@ -41,6 +41,6 @@ public class Todo {
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
-  @Column(name = "deleted_at")
+  @Column(name = "deleted_at", updatable = false)
   private LocalDateTime deletedAt;
 }

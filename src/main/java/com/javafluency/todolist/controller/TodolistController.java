@@ -3,6 +3,7 @@ package com.javafluency.todolist.controller;
 import com.javafluency.todolist.dto.TodoRequestDto;
 import com.javafluency.todolist.dto.TodoResponseDto;
 import com.javafluency.todolist.service.TodolistService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class TodolistController {
   private final TodolistService todolistService;
 
   @PostMapping
-  public ResponseEntity<TodoResponseDto> createTodo(@RequestBody TodoRequestDto todoRequestDto) {
+  public ResponseEntity<TodoResponseDto> createTodo(@Valid @RequestBody TodoRequestDto todoRequestDto) {
     log.info("Creating todo");
 
     return ResponseEntity.ok(todolistService.createTodo(todoRequestDto));
