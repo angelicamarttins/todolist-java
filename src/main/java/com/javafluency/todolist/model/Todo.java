@@ -12,12 +12,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.stereotype.Repository;
 
 @Data
 @Entity
 @Builder
-@Repository
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "todo")
